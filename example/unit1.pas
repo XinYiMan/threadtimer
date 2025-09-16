@@ -23,7 +23,6 @@ type
     procedure ThreadTimer1AfterTimer(Sender: TObject; Data: TObject);
     procedure ThreadTimer1Timer(Sender: TObject; out Data: TObject);
   private
-    FMyNow: TDateTime;
     FStarted : boolean;
     FShouldInc: Boolean; // variabile di appoggio per passare il risultato
   public
@@ -34,6 +33,8 @@ var
   Form1: TForm1;
 
 implementation
+uses
+    Variants;
 
 {$R *.lfm}
 
@@ -48,10 +49,8 @@ procedure TForm1.Button1Click(Sender: TObject);
 begin
      if (not FStarted) then
      begin
-       FMyNow := Now;
-       Self.Label1.Caption := DateTimeToStr(FMyNow);
-
        // Configuro il timer
+       ThreadTimer1.State := VarFromDateTime(Now);
        ThreadTimer1.Interval := 10000;  // 10 secondi
        ThreadTimer1.Enabled := True;
        FStarted := true;
@@ -60,7 +59,6 @@ begin
        ThreadTimer1.Interval := 0;
        ThreadTimer1.Enabled := False;
        FStarted := false;
-       Self.Label1.Caption := '-';
        Self.Button1.Caption := 'Start';
      end;
 
@@ -79,12 +77,14 @@ end;
 procedure TForm1.ThreadTimer1Timer(Sender: TObject; out Data: TObject);
 var
   SL: TStringList;
+  MyNow : TDateTime;
 begin
-  if Abs(MinutesBetween(Now , FMyNow)) >= 1 then
+  if Abs(MinutesBetween(Now , VarToDateTime(TThreadTimer(Sender).State))) >= 1 then
   begin
-    FMyNow := Now;
+    MyNow := Now;
+    TThreadTimer(Sender).State := VarFromDateTime(MyNow);
     SL := TStringList.Create;
-    SL.Text := DateTimeToStr(FMyNow);
+    SL.Text := DateTimeToStr(MyNow);
     Data := SL;
     ThreadTimer1.TriggerAfter := True; // segnala che va chiamato OnAfterTimer
   end;

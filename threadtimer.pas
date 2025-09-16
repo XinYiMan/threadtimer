@@ -33,6 +33,7 @@ type
     FThread: TThreadTimerThread;
     FData: TObject;         // buffer tra OnTimer e OnAfterTimer
     FTriggerAfter: Boolean; // flag per decidere se chiamare AfterTimer
+    FState: Variant; // variabile interna più flessibile
     procedure SetEnabled(AValue: Boolean);
     procedure SetInterval(AValue: Cardinal);
   protected
@@ -43,6 +44,7 @@ type
     destructor Destroy; override;
     // proprietà per permettere all’utente di segnalare se AfterTimer va invocato
     property TriggerAfter: Boolean read FTriggerAfter write FTriggerAfter;
+    property State: Variant read FState write FState; // proprietà pubblica
   published
     property Enabled: Boolean read FEnabled write SetEnabled default False;
     property Interval: Cardinal read FInterval write SetInterval default 1000;
