@@ -35,4 +35,4 @@ Questo permette di eseguire logica o operazioni lunghe senza bloccare l'interfac
 ---
 
 ## Esempio d’uso
-- Trovare un codice d'esempio completo nella sottocartella example
+- Trovaee un codice d'esempio completo nella sottocartella example
