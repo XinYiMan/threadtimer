@@ -43,7 +43,9 @@ object Form1: TForm1
   end
   object ThreadTimer1: TThreadTimer
     OnTimer = ThreadTimer1Timer
+    OnBeforeTimer = ThreadTimer1BeforeTimer
     OnAfterTimer = ThreadTimer1AfterTimer
+    OnError = ThreadTimer1Error
     Left = 26
     Top = 250
   end

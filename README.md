@@ -11,7 +11,6 @@ Questo permette di eseguire logica o operazioni lunghe senza bloccare l'interfac
 - Consente di aggiornare la GUI in modo sicuro tramite `OnAfterTimer`.
 - È possibile decidere dentro `OnTimer` se chiamare `OnAfterTimer` tramite `TriggerAfter`.
 - `Data: TObject` permette di passare oggetti dal thread secondario al main thread.
-- `State: Variant` permette di passare al timer uno stato di tipo variant su cui programmare degli eventi.
 
 ---
 
